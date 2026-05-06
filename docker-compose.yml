@@ -1,0 +1,56 @@
+services:
+  # Database
+  db:
+    image: postgres:15-alpine
+    container_name: crm-db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-crm_db}
+      POSTGRES_USER: ${DB_USERNAME:-crm_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-crm_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # Backend (Laravel)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    container_name: crm-backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE:-crm_db}
+      DB_USERNAME: ${DB_USERNAME:-crm_user}
+      DB_PASSWORD: ${DB_PASSWORD:-crm_password}
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/var/www/html
+
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+    container_name: crm-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  pgdata:

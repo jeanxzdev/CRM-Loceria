@@ -1,0 +1,322 @@
+Create a full-stack CRM web application for a small wholesale business (locería distributor selling to ~30 small shops). The system must be production-ready in structure, modular, and scalable. "LoceriaTrujillo" its name
+
+# 🎯 BUSINESS GOAL
+
+Build a CRM that allows:
+
+* Managing clients (stores)
+* Registering and tracking sales and orders
+* Monitoring business activity and client history
+* Improving sales decisions through data
+
+---
+
+# 🧠 CORE CONCEPT
+
+This is NOT a simple CRUD. It must include:
+
+* Relationship tracking (client history)
+* Business flow (client → order → sale → follow-up)
+* Status management
+* Decision support (basic dashboard)
+
+---
+
+# 🧱 TECH STACK
+
+Frontend:
+
+* Next.js (App Router)
+* TypeScript
+* TailwindCSS
+* React Hook Form
+* Zod
+* TanStack Query
+* Framer Motion (subtle animations)
+
+Backend:
+
+* Laravel (API REST)
+* Laravel Sanctum (authentication)
+
+Database:
+
+* PostgreSQL
+
+---
+
+# 🏗️ SYSTEM ARCHITECTURE
+
+Frontend (Next.js):
+
+* Consumes Laravel API
+* Handles UI, state, forms
+
+Backend (Laravel):
+
+* REST API
+* Auth (login/logout)
+* Business logic
+* Database access
+
+---
+
+# 🔐 AUTHENTICATION
+
+* Login with email and password
+* Protected routes (dashboard)
+* Session via Sanctum (cookies)
+
+---
+
+# 🧩 MODULES
+
+## 1. Dashboard
+
+* Daily sales summary
+* Active clients
+* Pending orders
+* Recent activity
+
+---
+
+## 2. Clients Management
+
+* Create, edit, delete clients
+
+* Fields:
+
+  * name
+  * phone
+  * address
+  * notes
+  * status (active/inactive)
+
+* View:
+
+  * client detail page
+  * full history (orders + sales)
+
+---
+
+## 3. Orders (Pedidos)
+
+* Create order per client
+* Add multiple products
+* Fields:
+
+  * client_id
+  * products[]
+  * quantities
+  * total
+  * status (pending, in progress, delivered)
+
+---
+
+## 4. Sales
+
+* Register completed sales
+* Link to client
+* Fields:
+
+  * client_id
+  * total
+  * date
+  * status (paid / pending)
+
+---
+
+## 5. Products (Optional but recommended)
+
+* name
+* price
+
+---
+
+# 🧠 BUSINESS FLOW
+
+Client → Order → Sale → History
+
+* Orders can become sales
+* Each client has a timeline of activity
+* Track last purchase
+
+---
+
+# 🗃️ DATABASE STRUCTURE
+
+Tables:
+
+users
+
+* id
+* email
+* password
+
+clients
+
+* id
+* name
+* phone
+* address
+* status
+* notes
+
+products
+
+* id
+* name
+* price
+
+orders
+
+* id
+* client_id
+* status
+* total
+* date
+
+order_items
+
+* id
+* order_id
+* product_id
+* quantity
+* price
+
+sales
+
+* id
+* client_id
+* total
+* status
+* date
+
+---
+
+# 🧩 UI / UX DESIGN
+
+Style:
+
+* Professional, modern, clean
+* Neutral dark/light (not flashy)
+* Subtle purple/blue accents
+* Clean spacing, readable typography
+
+Layout:
+
+* Sidebar navigation
+* Topbar with user info
+* Main dashboard area
+
+---
+
+# 🧱 COMPONENTS
+
+* Sidebar
+* Navbar
+* DataTable (reusable)
+* Modal (create/edit)
+* Form components
+* Status badges
+* Cards (dashboard)
+
+---
+
+# 🪟 MODALS
+
+Use modals for:
+
+* Create client
+* Create order
+* Register sale
+* Edit records
+
+Requirements:
+
+* Smooth open/close animation
+* Validation (Zod)
+* Clear UX
+
+---
+
+# 🎬 ANIMATIONS
+
+Use Framer Motion:
+
+* Page transitions (subtle fade/slide)
+* Modal animations
+* Hover effects (buttons/cards)
+
+Avoid overuse. Keep it professional.
+
+---
+
+# 🔄 DATA FLOW
+
+* Use TanStack Query:
+
+  * Fetch data
+  * Cache results
+  * Sync UI
+
+* Forms:
+
+  * React Hook Form + Zod validation
+
+---
+
+# 🔌 API ENDPOINTS (Laravel)
+
+Auth:
+
+* POST /login
+* POST /logout
+
+Clients:
+
+* GET /clients
+* POST /clients
+* PUT /clients/{id}
+* DELETE /clients/{id}
+
+Orders:
+
+* GET /orders
+* POST /orders
+
+Sales:
+
+* GET /sales
+* POST /sales
+
+---
+
+# ⚙️ FEATURES THAT ADD VALUE
+
+* Filter by date
+* Search clients
+* Status badges (color coded)
+* Client history timeline
+* Basic stats (no complex analytics)
+
+---
+
+# 🚫 AVOID
+
+* Overengineering
+* Complex roles system
+* Payment gateways
+* Multi-user permissions (for now)
+
+---
+
+# 🎯 FINAL GOAL
+
+Deliver a clean, professional CRM that:
+
+* Solves a real business problem
+* Shows strong full-stack skills
+* Is modular and easy to extend
+
+Ensure code is readable, well-structured, and follows best practices.
