@@ -17,7 +17,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: ../docker/backend.Dockerfile
+      dockerfile: Dockerfile
     container_name: crm-backend
     restart: always
     ports:
@@ -37,7 +37,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: ../docker/frontend.Dockerfile
+      dockerfile: Dockerfile
     container_name: crm-frontend
     restart: always
     ports:

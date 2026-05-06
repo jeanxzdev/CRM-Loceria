@@ -21,4 +21,4 @@ if [ ! -f ".env" ]; then
 fi
 
 # Run migrations and start server
-php artisan serve --host=0.0.0.0 --port=8000
+php artisan serve --host=0.0.0.0 --port=${PORT:-8000}

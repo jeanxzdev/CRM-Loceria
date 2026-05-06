@@ -23,6 +23,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
+# Copy application code
+COPY . .
+RUN chown -R www-data:www-data /var/www/html
+
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
