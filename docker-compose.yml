@@ -16,8 +16,8 @@ services:
   # Backend (Laravel)
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: crm-backend
     restart: always
     ports:
@@ -36,8 +36,8 @@ services:
   # Frontend (Next.js)
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
     container_name: crm-frontend
     restart: always
     ports:

@@ -4,7 +4,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copiar archivos de dependencias
-COPY package*.json ./
+COPY frontend/package*.json ./
 
 # Limpiar cache y reinstalar dependencias
 # Esto es crítico en Docker para evitar conflictos de binarios nativos
@@ -13,7 +13,7 @@ RUN npm cache clean --force && \
     npm install
 
 # Copiar resto del código
-COPY . .
+COPY frontend/ .
 
 # ===== ETAPA 2: Runtime =====
 FROM node:20-alpine
@@ -25,7 +25,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 
 # Copiar código fuente
-COPY . .
+COPY frontend/ .
 
 # Exponer puerto
 EXPOSE 3000

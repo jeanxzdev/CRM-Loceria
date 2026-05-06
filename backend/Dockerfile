@@ -24,11 +24,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy application code
-COPY . .
+COPY backend/ .
 RUN chown -R www-data:www-data /var/www/html
 
 # Copy entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY backend/docker-entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 8000
