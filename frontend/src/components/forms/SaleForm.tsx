@@ -145,7 +145,11 @@ export default function SaleForm({ clients, orders, onSubmit, isLoading }: SaleF
             className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-purple-500 outline-none transition-all"
           />
         </div>
-        {errors.date && <p className="text-xs text-rose-500 ml-1">{errors.date.message}</p>}
+        {errors.date?.message && (
+          <p className="text-xs text-rose-500 ml-1">
+            {typeof errors.date.message === "string" ? errors.date.message : String(errors.date.message)}
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
