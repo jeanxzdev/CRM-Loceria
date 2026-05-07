@@ -11,7 +11,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const pathname = usePathname();
   const router = useRouter();
   const [isAuthChecking, setIsAuthChecking] = useState(true);
-  const isLoginPage = pathname === "/login";
+  const isLoginPage = pathname === "/login" || pathname === "/login/";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
