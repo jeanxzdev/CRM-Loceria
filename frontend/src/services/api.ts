@@ -1,8 +1,11 @@
 import axios from "axios";
 
+// Limpiamos la URL de posibles espacios o errores de formato
+const rawBaseURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const cleanBaseURL = rawBaseURL.trim().replace(/\/$/, ""); 
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api",
-  withCredentials: true,
+  baseURL: cleanBaseURL,
   headers: {
     Accept: "application/json",
   },
