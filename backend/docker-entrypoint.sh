@@ -20,5 +20,9 @@ if [ ! -f ".env" ]; then
     php artisan key:generate
 fi
 
-# Run migrations and start server
+# Run migrations and seeders
+php artisan migrate --force
+php artisan db:seed --force
+
+# Start server
 php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
