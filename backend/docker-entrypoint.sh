@@ -14,10 +14,18 @@ if [ ! -d "vendor" ]; then
     composer install --no-interaction
 fi
 
-# Generate key if not set
-if [ ! -f ".env" ]; then
+# Generate key if not set and not provided by environment
+if [ -z "$APP_KEY" ] && [ ! -f ".env" ]; then
+    echo "Creating .env from .env.example..."
     cp .env.example .env
     php artisan key:generate
+fi
+
+# If APP_KEY is set in environment but no .env exists, we might still need a .env for some Laravel features
+# but we should be careful not to overwrite DB vars.
+# In Railway/production, it's better to rely on actual environment variables.
+if [ ! -f ".env" ] && [ "$APP_ENV" != "production" ]; then
+    cp .env.example .env
 fi
 
 # Run migrations and seeders
