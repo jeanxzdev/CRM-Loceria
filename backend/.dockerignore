@@ -1,0 +1,11 @@
+.env
+.env.*
+vendor/
+node_modules/
+storage/*.key
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+phpunit.xml
+tests/

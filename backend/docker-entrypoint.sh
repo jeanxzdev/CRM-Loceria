@@ -28,9 +28,17 @@ if [ ! -f ".env" ] && [ "$APP_ENV" != "production" ]; then
     cp .env.example .env
 fi
 
+# Clear all caches to ensure fresh configuration
+echo "Clearing Laravel caches..."
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+php artisan cache:clear
+
 # Run migrations and seeders
+echo "Running migrations..."
 php artisan migrate --force
-php artisan db:seed --force
+# php artisan db:seed --force # Optional: only if you want to seed on every deploy
 
 # Start server
 php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
